@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Analysis</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Light Warm Background */
+        body {
+            background: linear-gradient(135deg, #ffdbc5, #ff9a8b);
+            font-family: "Open Sans", sans-serif;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+
+        .quote {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .form-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: #e74c3c;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: #e74c3c;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #c0392b;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            color: #555;
+        }
+
+        .result-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .result-value {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .emotion-image {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .feedback-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .feedback-text {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">Customer Feedback Analysis</div>
+            <div class="quote">"We all need people who will give us feedback. That’s how we improve." - Bill Gates</div>
+            <form action="/sentiment_prediction" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="inputText" class="form-label">Enter Your Feedback</label>
+                    <input type="text" class="form-control" id="inputText" name="text" placeholder="Type your feedback here">
+                </div>
+                <button type="submit" class="btn btn-primary">Check Sentiment</button>
+            </form>
+            <div class="result">
+                <div class="result-title">Sentiment Analysis Result</div>
+                <div class="feedback-title">Entered Feedback</div>
+                {% if text %}
+                <div class="feedback-text">{{ text }}</div>
+                {% endif %}<br>
+                <div class="result-value">Sentiment: <strong>{% if probability %} {{ sentiment }} {% endif %}</strong></div>
+                <div class="result-value">Probability: <strong>{% if probability %} {{ probability }} {% endif %}</strong></div>
+                {% if probability %}
+                <img class="emotion-image" src="{{ image }}" alt="Emotion Image">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
